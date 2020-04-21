@@ -1,4 +1,6 @@
-﻿namespace TextureTool
+﻿using System;
+
+namespace TextureTool
 {
     partial class Form1
     {
@@ -33,6 +35,8 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openImageFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveImageFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.filtersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.grayScaleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.resizeToGameTextureButton = new System.Windows.Forms.Button();
             this.textBoxWidth = new System.Windows.Forms.TextBox();
@@ -45,6 +49,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
+            this.extraEffectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.flipImageVerticallyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.flipImageHorizontallyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -53,7 +61,9 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.filtersToolStripMenuItem,
+            this.extraEffectsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
@@ -64,7 +74,8 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openImageFileToolStripMenuItem,
-            this.saveImageFileToolStripMenuItem});
+            this.saveImageFileToolStripMenuItem,
+            this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -82,6 +93,21 @@
             this.saveImageFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveImageFileToolStripMenuItem.Text = "Save Image File";
             this.saveImageFileToolStripMenuItem.Click += new System.EventHandler(this.saveImageFileToolStripMenuItem_Click);
+            // 
+            // filtersToolStripMenuItem
+            // 
+            this.filtersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.grayScaleToolStripMenuItem});
+            this.filtersToolStripMenuItem.Name = "filtersToolStripMenuItem";
+            this.filtersToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+            this.filtersToolStripMenuItem.Text = "Filters";
+            // 
+            // grayScaleToolStripMenuItem
+            // 
+            this.grayScaleToolStripMenuItem.Name = "grayScaleToolStripMenuItem";
+            this.grayScaleToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.grayScaleToolStripMenuItem.Text = "GrayScale";
+            this.grayScaleToolStripMenuItem.Click += new System.EventHandler(this.grayScaleToolStripMenuItem_Click_1);
             // 
             // pictureBox1
             // 
@@ -197,9 +223,39 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(61, 54);
             this.button2.TabIndex = 12;
-            this.button2.Text = "Clear loaded Image(s)";
+            this.button2.Text = "Clear loaded Image";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // extraEffectsToolStripMenuItem
+            // 
+            this.extraEffectsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.flipImageVerticallyToolStripMenuItem,
+            this.flipImageHorizontallyToolStripMenuItem});
+            this.extraEffectsToolStripMenuItem.Name = "extraEffectsToolStripMenuItem";
+            this.extraEffectsToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
+            this.extraEffectsToolStripMenuItem.Text = "Extra Effects";
+            // 
+            // flipImageVerticallyToolStripMenuItem
+            // 
+            this.flipImageVerticallyToolStripMenuItem.Name = "flipImageVerticallyToolStripMenuItem";
+            this.flipImageVerticallyToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.flipImageVerticallyToolStripMenuItem.Text = "Flip Image Vertically";
+            this.flipImageVerticallyToolStripMenuItem.Click += new System.EventHandler(this.flipImageVerticallyToolStripMenuItem_Click);
+            // 
+            // flipImageHorizontallyToolStripMenuItem
+            // 
+            this.flipImageHorizontallyToolStripMenuItem.Name = "flipImageHorizontallyToolStripMenuItem";
+            this.flipImageHorizontallyToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.flipImageHorizontallyToolStripMenuItem.Text = "Flip Image Horizontally";
+            this.flipImageHorizontallyToolStripMenuItem.Click += new System.EventHandler(this.flipImageHorizontallyToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -232,6 +288,11 @@
 
         }
 
+        private void grayscaleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         private System.Windows.Forms.MenuStrip menuStrip1;
@@ -250,6 +311,12 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ToolStripMenuItem filtersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem grayScaleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem extraEffectsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem flipImageVerticallyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem flipImageHorizontallyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }
 
