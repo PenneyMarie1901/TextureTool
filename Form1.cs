@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
+using System.Drawing.Drawing2D;
+using System.IO;
 
 namespace TextureTool
 {
@@ -111,6 +113,186 @@ namespace TextureTool
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        public void SaveImage(Image image, string filename)
+        {
+            string extension = Path.GetExtension(filename);
+            switch (extension.ToLower())
+            {
+                case ".bmp":
+                    image.Save(filename, ImageFormat.Bmp);
+                    break;
+                case ".exif":
+                    image.Save(filename, ImageFormat.Exif);
+                    break;
+                case ".gif":
+                    image.Save(filename, ImageFormat.Gif);
+                    break;
+                case ".jpg":
+                case ".jpeg":
+                    image.Save(filename, ImageFormat.Jpeg);
+                    break;
+                case ".png":
+                    image.Save(filename, ImageFormat.Png);
+                    break;
+                case ".tif":
+                case ".tiff":
+                    image.Save(filename, ImageFormat.Tiff);
+                    break;
+                default:
+                    throw new NotSupportedException(
+                        "Unknown file extension " + extension);
+            }
+        }
+
+        private void ButtonSelectFolder_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog f = new FolderBrowserDialog();
+            if (f.ShowDialog() == DialogResult.OK)
+            {
+                textBoxSelectFolder.Text = f.SelectedPath;
+                DirectoryInfo Folder;
+
+                Folder = new DirectoryInfo(f.SelectedPath);
+            }
+        }
+
+        private void BatchResizeButton_Click(object sender, EventArgs e)
+        {
+            Cursor = Cursors.WaitCursor;
+            Refresh();
+
+            DirectoryInfo dir_info = new DirectoryInfo(textBoxSelectFolder.Text);
+            foreach (FileInfo file_info in dir_info.GetFiles())
+            {
+                try
+                {
+                    string ext = file_info.Extension.ToLower();
+                    if ((ext == ".bmp") || (ext == ".gif") ||
+                        (ext == ".jpg") || (ext == ".jpeg") ||
+                        (ext == ".png"))
+                    {
+                        using (Bitmap bm = new Bitmap(file_info.FullName))
+                        {
+                            pictureBox1.Image = bm;
+                            Text = "Resized - " +
+                                file_info.Name;
+                            Application.DoEvents();
+
+                            Rectangle from_rect =
+                                new Rectangle(0, 0, bm.Width, bm.Height);
+
+                            Int16 wid2 = Int16.Parse(textBoxBatchWidth.Text);
+                            Int16 hgt2 = Int16.Parse(textBoxBatchHeight.Text);
+                            using (Bitmap bm2 = new Bitmap(wid2, hgt2))
+                            {
+                                Rectangle dest_rect =
+                                    new Rectangle(0, 0, wid2, hgt2);
+                                using (Graphics gr =
+                                    Graphics.FromImage(bm2))
+                                {
+                                    gr.InterpolationMode =
+                                       InterpolationMode.HighQualityBicubic;
+                                    gr.DrawImage(bm, dest_rect, from_rect,
+                                       GraphicsUnit.Pixel);
+                                }
+
+                                string new_name = file_info.FullName;
+                                new_name = new_name.Substring(0,
+                                    new_name.Length - ext.Length);
+                                new_name += "_BatchResized" + ext;
+                                SaveImage(bm2, new_name);
+
+                                pictureBox1.Image = null;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error processing file '" +
+                        file_info.Name + "'\n" + ex.Message,
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            } 
+
+            Text = "Resized";
+            Cursor = Cursors.Default;
+        }
+
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            Cursor = Cursors.WaitCursor;
+            Refresh();
+
+            DirectoryInfo dir_info = new DirectoryInfo(textBoxSelectFolder.Text);
+            foreach (FileInfo file_info in dir_info.GetFiles())
+            {
+                try
+                {
+                    string ext = file_info.Extension.ToLower();
+                    if ((ext == ".bmp") || (ext == ".gif") ||
+                        (ext == ".jpg") || (ext == ".jpeg") ||
+                        (ext == ".png"))
+                    {
+                        using (Bitmap bm = new Bitmap(file_info.FullName))
+                        {
+                            pictureBox1.Image = bm;
+                            Text = "Resized - " +
+                                file_info.Name;
+                            Application.DoEvents();
+
+                            Rectangle from_rect =
+                                new Rectangle(0, 0, bm.Width, bm.Height);
+
+                            Int16 wid2 = Int16.Parse("128");
+                            Int16 hgt2 = Int16.Parse("128");
+                            using (Bitmap bm2 = new Bitmap(wid2, hgt2))
+                            {
+                                Rectangle dest_rect =
+                                    new Rectangle(0, 0, wid2, hgt2);
+                                using (Graphics gr =
+                                    Graphics.FromImage(bm2))
+                                {
+                                    gr.InterpolationMode =
+                                       InterpolationMode.HighQualityBicubic;
+                                    gr.DrawImage(bm, dest_rect, from_rect,
+                                       GraphicsUnit.Pixel);
+                                }
+
+                                string new_name = file_info.FullName;
+                                new_name = new_name.Substring(0,
+                                    new_name.Length - ext.Length);
+                                new_name += "_BatchResized" + ext;
+                                SaveImage(bm2, new_name);
+
+                                pictureBox1.Image = null;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error processing file '" +
+                        file_info.Name + "'\n" + ex.Message,
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
+
+            Text = "Resized";
+            Cursor = Cursors.Default;
+        }
+
+        private void Button4_Click(object sender, EventArgs e)
+        {
+            textBoxBatchHeight.Text = null;
+            textBoxBatchWidth.Text = null;
+            textBoxSelectFolder.Text = null;
         }
     }
 }
