@@ -9,8 +9,9 @@ importing into Igorseabra4's Industrial Park.
 - You can currently resize an image to 128 x 128 pixels using the "Resize to 128 x 128" button.
 - You can resize an image to a custom size (in pixels) and then save.
 - You can clear an image and open a new one.
-- (New!) You can add a Grayscale filter to make an image black and white.
-- (New) You can flip your image vertically or horizontally.
+- You can add a Grayscale filter to make an image black and white.
+- You can flip your image vertically or horizontally.
+- You can batch scale images in a selected directory to 128 x 128 pixels, or to a custom resolution.
 
 # Main Uses
 This software is meant to open an image (moslty images you download from the internet) or any image you want to use as a texture for BFBB
